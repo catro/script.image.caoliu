@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window type="window">
+    <controls>
+        <control type="image">
+            <description>Normal Default Background Image</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <aspectratio>scale</aspectratio>
+            <texture>bigpicture_hg.jpg</texture>
+        </control>
+        <control type="image">
+            <description>The spinning animation in the background</description>
+            <posx>607</posx>
+            <posy>327</posy>
+            <width>66</width>
+            <height>66</height>
+            <texture>loader.gif</texture>
+            <visible>!IntegerGreaterThan(Container(100).NumPages,0) | ![Container(100).OnNext | Container(100).OnPrevious]</visible>
+            <animation effect="fade" time="200" delay="500" reversible="false">Visible</animation>
+        </control>
+        <control type="list" id="100">
+            <description>List of Images</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <scrolltime tween="cubic" easing="inout">500</scrolltime>
+            <animation effect="zoom" start="100" end="70" center="auto" time="400" tween="cubic" easing="inout" condition="stringcompare(Window.Property(Category),Album)">Conditional</animation>
+            <animation effect="slide" start="0" end="0,-60" center="auto" time="400" tween="cubic" easing="inout" condition="Control.IsVisible(102)">Conditional</animation>
+            <orientation>horizontal</orientation>
+            <preloaditems>2</preloaditems>
+            <itemlayout width="1280" height="720">
+                <control type="largeimage">
+                    <description>Picture in ratio scale</description>
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>1280</width>
+                    <height>720</height>
+                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <aspectratio>keep</aspectratio>
+                </control>
+            </itemlayout>
+            <focusedlayout width="1280" height="720">
+                <control type="largeimage">
+                    <description>Picture in ratio scale</description>
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    <width>1280</width>
+                    <height>720</height>
+                    <texture background="true">$INFO[ListItem.Icon]</texture>
+                    <aspectratio>keep</aspectratio>
+                </control>
+            </focusedlayout>
+        </control>
+        <control type="group">
+            <description>Group for controls which are hidden and shown via info-key</description>
+            <animation effect="fade" time="200">VisibleChange</animation>
+            <control type="label">
+                <description>Label for source title</description>
+                <posx>20</posx>
+                <posy>15</posy>
+                <width>800</width>
+                <height>20</height>
+                <align>left</align>
+                <aligny>center</aligny>
+                <label>$INFO[Window.Property(Title)]</label>
+                <textcolor>FFDDDDDD</textcolor>
+                <font>font13</font>
+            </control>
+            <control type="label">
+                <description>(CurrentPage/NumPages)</description>
+                <posx>1260</posx>
+                <posy>15</posy>
+                <width>320</width>
+                <height>20</height>
+                <align>right</align>
+                <aligny>center</aligny>
+                <label>($INFO[Container(100).CurrentPage]/$INFO[Container(100).NumPages])</label>
+                <textcolor>FFDDDDDD</textcolor>
+                <font>font13</font>
+                <visible>IntegerGreaterThan(Container(100).NumPages,0)</visible>
+            </control>
+        </control>
+    </controls>
+</window>

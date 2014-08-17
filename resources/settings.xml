@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="设置">
+        <setting id="url" label="草榴地址" type="text" default="http://www.t66y.com"/>
+        <setting id="cache_post" label="缓存帖子" type="labelenum" values="1|5|10|20|30|" default="10"/>
+        <setting id="thread_count" label="下载线程" type="labelenum" values="1|5|10|20|30|40|50|100" default="50"/>
+        <setting id="timeout" label="超时(秒)" type="number" default="10"/>
+        <setting id="download_path" label="下载地址" type="folder" option="writeable" values=""/>
+        <setting label="清空缓存" type="action" action="RunScript($CWD/script.py, clear)"/>
+    </category>
+</settings>
+
