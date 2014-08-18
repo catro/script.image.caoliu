@@ -26,8 +26,6 @@ class GUI(xbmcgui.WindowXML):
 
     def __init__(self, *args, **kwargs):
         path = addon.getSetting('download_path')
-        if path == '':
-            path = addon_path + 'images'
         self._scraper = kwargs.get('scraper')(path, addon.getSetting('url'), self._on_downloaded, 
                                               int(addon.getSetting('cache_post')),
                                               int(addon.getSetting('thread_count')),
@@ -102,8 +100,6 @@ class GUI(xbmcgui.WindowXML):
 
 def clear():
     path = addon.getSetting('download_path')
-    if path == '':
-        return
     try:
         if os.path.isdir(path):
             for root, dirs, files in os.walk(path, topdown=False):
@@ -121,5 +117,10 @@ if __name__ == '__main__':
         if sys.argv[1] == 'clear':
             clear()
     else:
-        gui = GUI(u'script-caoliu-main.xml', addon_path, "Default", session=None, scraper=CaoliuScraper).doModal()
-        del gui
+        if addon.getSetting('download_path') == '':
+            addon.openSettings()
+        if addon.getSetting('download_path') != '':
+            gui = GUI(u'script-caoliu-main.xml', addon_path, "Default", session=None, scraper=CaoliuScraper).doModal()
+            del gui
+        else:
+            xbmcgui.Dialog().notification('提示', '下载路径不能为空')
