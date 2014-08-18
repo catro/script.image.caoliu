@@ -26,7 +26,11 @@ class GUI(xbmcgui.WindowXML):
 
     def __init__(self, *args, **kwargs):
         path = addon.getSetting('download_path')
-        self._scraper = kwargs.get('scraper')(path, addon.getSetting('url'), self._on_downloaded, 
+        url = addon.getSetting('url')
+        if url[-1:] != '/':
+            url = url + '/'
+        self.log(url)
+        self._scraper = kwargs.get('scraper')(path, url, self._on_downloaded, 
                                               int(addon.getSetting('cache_post')),
                                               int(addon.getSetting('thread_count')),
                                               int(addon.getSetting('timeout')))
